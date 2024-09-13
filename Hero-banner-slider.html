@@ -1,0 +1,680 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --progress-bar-width: 200px;
+    --progress-bar-height: 200px;
+    --font-size: 2rem;
+  }
+
+  .circular-progress {
+    width: 550px;
+    height: 550px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .inner-circle {
+    position: absolute;
+    width: 540px;
+    height:540px;
+    border-radius: 50%;
+    background-color: lightgrey;
+  }
+
+  .percentage {
+    position: relative;
+    font-size: var(--font-size);
+    color: rgb(0, 0, 0, 0.8);
+    font-size: 0px;
+  }
+  .img_5 {
+    background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-5.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .img_4 {
+    background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-4-copy.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .img_3 {
+    background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-3.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .img_2 {
+    background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .img_1 {
+    background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-1-1.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  ul.slider_nav_items li.active .hover-show{
+    display: none !important;
+  }
+/*  ul.slider_nav_items li.active .project_img, .project_img, ul.slider_nav_items li:hover .project_img {
+    margin-left: 43px !important;
+  }*/
+
+/*  ul.slider_nav_items li:hover .margin_Right, ul.slider_nav_items li.active .margin_Right, .margin_Right{
+    margin-left: 38px !important;
+  }*/
+  ul.slider_nav_items li.active .hover-none{
+    display: block; !important;
+  }
+  ul.slider_nav_items li:hover {
+    transform: scale(1.1);
+    transition: all .5s;
+  }
+
+  .slider_content button a {
+    color: #fff !important;
+    text-decoration: none !important;
+  }
+  #navbar {
+    margin-bottom: -110px;
+    margin-left: -45px;
+    padding-bottom: 50px;
+  }
+  .slider_bg_image{
+    min-height: 100vh;
+  }
+  .row.d_flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .slider_inner {
+    margin: auto;
+    padding: 0 15px; 
+  }
+  ul.slider_nav_items li {
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    margin-right: 19px;
+    font-size: 14px;
+    width: 11% !important;
+    transition: all.5s;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 8px solid transparent;
+  }
+  .column_left {
+    width: 100%; 
+  }
+  .column_right {
+    width: 100%; 
+    text-align: center; 
+    margin-top: 20px;
+    position: relative; 
+  }
+  ul.slider_nav_items {
+    padding: 0px;
+  }
+  .column_left, .column_right {
+    margin: auto;
+  }
+  .hidden_slide_item, .slider_content, .hover-none, ul.slider_nav_items li:hover .hover-show {
+    display: none;
+  }
+  .slider_content, .image_section {
+    box-sizing: border-box;
+    padding-top: 75px
+  }
+  .slider_content h1 {
+    font-size: 50px;
+    color: #fff;
+  }
+  .slider_content p {
+    font-size: 18px;
+    margin: 0px;
+    color: #fff;
+    line-height: 1.6
+  }
+
+  .slider_content button {
+    background: black;
+    border: unset;
+    padding: 11px 19px;
+    color: #fff;
+    border-radius: 10px;
+    margin: 33px 0px 37px 0px;
+    background-color: transparent;
+    background-image: linear-gradient(145deg, #492BD1 0%, #53ABD0 100%);
+    font-weight: 500;
+  }
+  .slider_content button:hover{
+    background-color: transparent;
+    background-image: linear-gradient(145deg, #53ABD0 0%, #492BD1 100%);
+  }
+  p.nav_numbers {
+    padding-top: 0px !important;
+    margin: 0px !important;
+    font-weight: 600;
+    font-size: 16px !important;
+  }
+  p.nav_items_text {
+    margin: 0px;
+    font-size: 16px;
+    padding-bottom: 7px !important
+  }
+  .slide1_main_heading2 {
+    font-size: 22px !important;
+    padding-top: 11px;
+    font-weight: 600;
+  }
+  ul.slider_nav_items li img {
+    width: 70px;
+    margin: 0 auto !important;
+    border-radius: 20%;
+  }
+  ul.slider_nav_items li:hover .hover-none {
+    display: block;
+  }
+  ul.slider_nav_items li:hover p.nav_numbers, ul.slider_nav_items li.active p.nav_numbers {
+    color: #529cd1 !important;
+  }ul.slider_nav_items li:hover p.nav_items_text, ul.slider_nav_items li.active p.nav_items_text {
+    color: #529cd1 !important;
+    border-bottom: 2px solid #529cd1 !important;
+  }
+  ul.slider_nav_items li p.nav_items_text{
+    display: inline-block;
+  } 
+  .d-flex-cstm {
+    vertical-align: top;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .pause-play-button {
+    border-style: double;
+    border-width: 0px 0 0px 20px;
+    box-sizing: border-box;
+    width: 0;
+    height: 30px;
+    border-color: transparent transparent transparent #fff;
+    cursor: pointer;
+    will-change: border-width;
+    transition: all 0.2s ease;
+  }
+  .pause-play-button.paused {
+    border-style: solid;
+    border-width: 15px 0 15px 23px;
+  }
+  .pause-play-button:hover {
+    border-color: transparent transparent transparent #fff;
+  }
+  .button-css-play {
+    background: #4126c1;
+    padding: 11px 0px 0px 16px;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+  }
+  @media screen and (max-width: 500px) {
+    :root {
+      --progress-bar-width: 120px;
+      --progress-bar-height: 120px;
+      --font-size: 1rem;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    :root {
+      --progress-bar-width: 150px;
+      --progress-bar-height: 150px;
+      --font-size: 1.3rem;
+    }
+  }
+  @media screen and (min-width: 767px) { 
+    #navbar {
+      display: flex;
+      align-items: center;
+    }
+    ul.slider_nav_items {
+      width: 80%;
+    }
+    .column_left {
+      width: 50%; 
+    }
+    .column_right {
+      width: 50%; 
+      text-align: right; 
+      margin-top: 0; 
+    }
+    .slider_content h1 {
+      font-size: 40px;
+      color: #fff;
+      line-height: 1.3em;
+      letter-spacing: 1px;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .column_left {
+      width: 60%; 
+    }
+    .column_right {
+      width: 40%; 
+      text-align: center; 
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .slide_navbar .slider_nav_items .active {
+      background: linear-gradient(271deg, #492BD1, #53ABD0) border-box !important;
+/*    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0) !important;*/
+-webkit-mask-composite: destination-out !important;
+mask-composite: exclude !important;
+border-radius: 50px;
+height: 22px;
+}
+.border-mobo{
+  position: relative;
+  border-radius: 50px !important;
+}
+li.border-mobo:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50px;
+  border: 5px solid transparent;
+  background: linear-gradient(271deg, #492BD1, #53ABD0) border-box!important;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)!important;
+  -webkit-mask-composite: destination-out !important;
+  mask-composite: exclude !important;
+  height: 22px;
+}
+ul.slider_nav_items li {
+  width: 15% !important;
+}
+ul.slider_nav_items li {
+  margin: 0 auto;
+}
+ul.slider_nav_items.d-flex-cstm {
+  position: absolute;
+  top: -30px;
+  z-index: 9999;
+  justify-content: center;
+}
+.slide_navbar {
+  position: relative;
+} 
+.inner-section-slider .elementor-container.elementor-column-gap-extended {
+  display: inline !important;
+}
+.slider_content{
+  align-self: end;
+}
+#navbar{
+  margin-bottom: 0px !important;
+  margin-left: 0px !important;
+  padding-bottom: 0px !important;
+}
+ul.slider_nav_items li:hover img, ul.slider_nav_items li.active img, ul.slider_nav_items li img, .image_section, .button-css-play {
+  display:none !important
+}
+ul.slider_nav_items li{
+  font-size: 0px;
+}
+.slider_content h1 {
+  font-size: 20px;
+  color: #fff;
+}
+.slider_content p{
+  font-size: 14px !important;
+  color: #fff;
+}
+div#content1:before, div#content2:before, div#content3:before, div#content4:before, div#content5:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -2;
+  min-height: 450px;
+}
+div#content1:after, div#content2:after, div#content3:after, div#content4:after, div#content5:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: -1;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  text-align: center;
+  margin: 0 auto;
+  min-height: 450px;
+  background-size: cover;
+  background-position: bottom center;
+}
+div#content1:after {
+  background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-1-1.png);
+}
+div#content2:after {
+  background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-2.jpg);
+  background-position: 40% 0%;
+}
+div#content3:after {
+  background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-3.jpg);
+  background-position: 40% 0%;
+}
+div#content4:after {
+  background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-4-copy.png);
+  background-position: 40% 0%;
+}
+div#content5:after {
+  background-image: url(https://leadloom.io/wp-content/uploads/2024/05/Hero-Slide-5.jpg);
+  background-position: 40% 0%;
+}
+.column_left {
+  width: 100%;
+  z-index: 99; 
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  padding-right: 21px;
+  padding-left: 21px; 
+  z-index: 1 !important;
+  height: calc(100vh - 200px);
+  display: flex;
+}
+.column_right img{
+  display: none;
+}
+ul.slider_nav_items li {
+/*background: #5294d1;*/
+padding: 6px;
+/*border-radius: 23px;*/
+}
+.slider_content button {
+  margin-bottom: 0px;
+}
+.slider_inner {
+  padding: 0px !important;
+}
+.slider_content, .image_section {
+  padding-top: 0px
+}
+div#navbar {
+  margin-top: 0px;
+}
+
+ul.slider_nav_items li p {
+  font-size: 0px !important;
+}
+.slider_main .slider_inner .row.d_flex {
+  width: 100%;
+}
+}
+@media only screen and (max-width: 1440px) and (min-width: 1080px) {
+  .circular-progress {
+    width: 410px !important;
+    height: 410px !important;
+    margin: 0 auto !important;
+  }
+  .inner-circle {
+    height: 400px !important;
+    width: 400px !important;
+    margin: 0 auto !important;
+  }
+}
+.slider_main{
+  background:black;
+}
+</style>
+
+<div class="slider_main">
+  <div class="slider_inner">
+    <div class="row d_flex">
+      <div class="column_left">
+        <div class="slider_content" id="content1">
+          <h1 class="slide1_main_heading">Merging Business Strategies with Technical Solutions</h1>
+          <p>Our unique approach combines the expertise of business and tech consultants. We thoroughly evaluate your business challenges to develop effective strategies and recommend tailored technology solutions that seamlessly address these challenges.</p>
+          <button><a href="https://leadloom.io/services#first-slide">Learn more</a></button>
+        </div>
+        <div class="slider_content hidden_slide_item" id="content2">
+          <h1>Convert Leads to Clients with a Strong Online Presence</h1>
+          <p>Create a high-quality website that delivers an exceptional user experience, establishes your brand’s credibility, and converts visitors into loyal customers. Our custom web development solutions are designed to drive traffic, increase engagement, and boost your sales. With seamless integration and tailored features, we ensure your online presence stands out and performs at its best. Let’s elevate your business together!</p>
+          <button><a href="https://leadloom.io/services#slide_2">Learn more</a></button>
+        </div>
+        <div class="slider_content hidden_slide_item" id="content3">
+          <h1>Specific Challenges Need Specific Solutions</h1>
+          <p>Transform your business with custom-designed software tailored to your unique way of operating. Our solutions integrate seamlessly with your existing processes, enhancing productivity without disrupting your workflow. Experience increased efficiency and profitability. Let's take your business to the next level together!</p>
+          <button><a href="https://leadloom.io/services#App_Development">Learn more</a></button>
+        </div>
+        <div class="slider_content hidden_slide_item" id="content4">
+          <h1>Money Saved is Money Made</h1>
+          <p>Our AI & Automation solutions are designed to streamline your business processes by reducing headcount, minimizing errors, and enhancing client satisfaction. This not only boosts revenue growth but also gives you a competitive edge.</p>
+          <button><a href="https://leadloom.io/services#slide_4">Learn more</a></button>
+        </div>
+        <div class="slider_content hidden_slide_item" id="content5">
+          <h1>Keep In Touch at a Touch</h1>
+          <p>Did you know that 60% of all online transactions are made through mobile devices? That’s why giving your clients mobile access can boost your business’s accessibility, visibility and overall user experience.</p>
+          <button><a href="https://leadloom.io/services#slide_2">Learn more</a></button>
+        </div>
+      </div>
+      <div class="column_right">
+        <div class="image_section" id="image1">
+          <div class="circular-progress" data-inner-circle-color="rgb(74,71,201)" data-progress-color="#55BCE7" data-bg-color="lightgrey">
+            <div class="inner-circle img_1"></div>
+            <p class="percentage"></p>
+          </div>
+        </div>
+        <div class="image_section hidden_slide_item" id="image2">
+          <div class="circular-progress" data-inner-circle-color="rgb(74,71,201)" data-progress-color="#55BCE7" data-bg-color="lightgrey">
+            <div class="inner-circle img_2"></div>
+            <p class="percentage"></p>
+          </div>
+        </div>
+        <div class="image_section hidden_slide_item" id="image3">
+          <div class="circular-progress" data-inner-circle-color="rgb(74,71,201)" data-progress-color="#55BCE7" data-bg-color="lightgrey">
+            <div class="inner-circle img_3"></div>
+            <p class="percentage"></p>
+          </div>
+        </div>
+        <div class="image_section hidden_slide_item" id="image4">
+          <div class="circular-progress" data-inner-circle-color="rgb(74,71,201)" data-progress-color="#55BCE7" data-bg-color="lightgrey">
+            <div class="inner-circle img_4"></div>
+            <p class="percentage"></p>
+          </div>
+        </div>
+        <div class="image_section hidden_slide_item" id="image5">
+          <div class="circular-progress" data-inner-circle-color="rgb(74,71,201)" data-progress-color="#55BCE7" data-bg-color="lightgrey">
+            <div class="inner-circle img_5"></div>
+            <p class="percentage"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide_navbar" id="navbar">
+      <ul class="slider_nav_items d-flex-cstm">
+        <li class="border-mobo" data-target="1">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Projects-white01.png" class="hover-show project_img">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Projects-blue01.png" class="hover-none project_img"><br>
+          <p class="nav_numbers">1832</p><br>
+          <p class="nav_items_text">#Projects</p>
+        </li>
+        <li class="border-mobo" data-target="2">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Websites-Designed-white01.png" class="hover-show">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Websites-Designed-blue01.png" class="hover-none"><br>
+          <p class="nav_numbers">336</p><br>
+          <p class="nav_items_text">Websites Designed</p>
+        </li>
+        <li class="border-mobo" data-target="3">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Custom-Software-Dev-white01.png" class="hover-show margin_Right">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Custom-Software-Dev-blue01.png" class="hover-none margin_Right"><br>
+          <p class="nav_numbers">331</p><br>
+          <p class="nav_items_text">Custom Software Developed</p>
+        </li>
+        <li class="border-mobo" data-target="4">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Automations-Built-white01.png" class="hover-show extra-width">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Automations-Built-blue01.png" class="hover-none extra-width"><br>
+          <p class="nav_numbers">442</p><br>
+          <p class="nav_items_text">Automations Built</p>
+        </li>
+        <li class="border-mobo" data-target="5">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Mobile-Apps-Dev-white01.png" class="hover-show">
+          <img src="https://leadloom.io/wp-content/uploads/2024/05/Mobile-Apps-Dev-blue01.png" class="hover-none"><br>
+          <p class="nav_numbers">167</p><br>
+          <p class="nav_items_text">Mobile Apps Developed</p>
+        </li>
+      </ul>
+      <div class="button-css-play">
+        <div class="pause-play-button"></div>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<script>
+$( document ).ready( function() {
+  var $_in_process = false;
+  var currentIndex = 0;
+  var totalSlides = 5;
+  var slideDuration = 7000; // 7 seconds
+  var progressValue = 0;
+  var progressPaused = false;
+  var startTime;
+
+  $( '#image1' ).removeClass( 'hidden_slide_item' ).show();
+  $( 'ul.slider_nav_items li[data-target="1"]' ).addClass( 'active' );
+  
+
+  startSlider();
+
+  $( 'ul.slider_nav_items li' ).click( function() {
+    $( '.pause-play-button' ).removeClass( 'paused' );
+    progressPaused = false;
+    
+    currentIndex = $( this ).data( 'target' );
+    jumpToSlide();
+  });
+  
+  $( '.pause-play-button' ).click( function( e ) {
+    e.preventDefault();
+    
+    if ( $( this ).hasClass( 'paused' ) ) {
+      $( this ).removeClass( 'paused' );
+      progressPaused = false;
+      initiateProgressBar( true );
+    } else {
+      $( this ).addClass( 'paused' );
+      progressPaused = true;
+    }
+  });
+  
+  function startSlider () {
+    nextSlide();
+  }
+  
+  function nextSlide() {
+    currentIndex++;
+    jumpToSlide();
+  }
+
+  function jumpToSlide() {
+    if ( currentIndex > totalSlides ) {
+      currentIndex = 1;
+    }
+    
+    showContent();
+  }
+  
+  function showContent() {
+    if ( $_in_process ) return;
+    if ( $( '#content' + currentIndex ).hasClass( 'active' ) ) return;
+
+    var windowWidth = $(window).width();
+    $_in_process = true;
+
+    // Update Navbar
+    $( 'ul.slider_nav_items li.active' ).removeClass( 'active' );
+    $( 'ul.slider_nav_items li[data-target="' + currentIndex + '"]' ).addClass( 'active' );
+
+    if ( windowWidth <= 767 ) {
+      if ( $( '.slider_content.active' ).length ) {
+        $( '.slider_content.active' ).removeClass( 'active' ).fadeOut( 1000, function() {
+          $( '#content' + currentIndex ).addClass( 'active' ).fadeIn( 1000, function() {
+            $_in_process = false;
+          });
+        });
+      } else {
+        $( '#content' + currentIndex ).addClass( 'active' ).fadeIn( 1000, function() {
+          $_in_process = false;
+        });
+      }
+    } else {
+      if ( $( '.slider_content.active' ).length ) {
+        $( '.slider_content.active' ).removeClass( 'active' ).slideUp( 1000, function() {
+          $( '#content' + currentIndex ).addClass( 'active' ).slideDown( 1000, function() {
+            $_in_process = false;
+          });
+        });
+      } else {
+        $( '#content' + currentIndex ).addClass( 'active' ).slideDown( 1000, function() {
+          $_in_process = false;
+        });
+      }
+    }
+
+    $( '.image_section' ).addClass( 'hidden_slide_item' ).fadeOut( 0 );
+    $( '#image' + currentIndex ).removeClass( 'hidden_slide_item' ).hide().fadeIn( 1000 );
+
+    initiateProgressBar();
+  }
+
+  function initiateProgressBar( $resume_from_lasyt_pos = false ) {
+    const progressBar = document.querySelector( '#image' + currentIndex + ' .circular-progress' );
+    const progressValueElement = progressBar.querySelector( '.percentage' );
+    const innerCircle = progressBar.querySelector( '.inner-circle' );
+    
+    //if ( ! $resume_from_lasyt_pos ) {
+      progressValue = 0;
+    //}
+    
+    const endValue = 100;
+    startTime = new Date().getTime();
+    const progressColor = progressBar.getAttribute( 'data-progress-color' );
+    const speed = slideDuration / endValue;
+
+    function animateProgress() {
+      if ( progressPaused ) return;
+      const currentTime = new Date().getTime();
+      const elapsedTime = currentTime - startTime;
+      progressValue = Math.min((elapsedTime / slideDuration) * 100, 100);
+      progressValueElement.textContent = `${Math.floor(progressValue)}%`;
+      progressValueElement.style.color = progressColor;
+      innerCircle.style.backgroundColor = progressBar.getAttribute( 'data-inner-circle-color' );
+      progressBar.style.background = `conic-gradient(${progressColor} ${progressValue * 3.6}deg, ${progressBar.getAttribute( 'data-bg-color' )} 0deg)`;
+
+      if ( progressValue < endValue ) {
+        requestAnimationFrame( animateProgress );
+      } else {
+        nextSlide();
+      }
+    }
+
+    animateProgress();
+  }
+});
+</script>
